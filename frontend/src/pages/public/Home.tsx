@@ -91,7 +91,7 @@ export default function Home() {
         <div className="container-px mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="aspect-video rounded-3xl overflow-hidden shadow-md order-2 lg:order-1">
             <img
-              src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1200&auto=format&fit=crop"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ77UM8eC-cS3IdjZnv-U0dhmU-qSQbZIKBoquFvbbz2uXsb7BjZUO5-GU&s=10"
               alt="Yormand clinic interior"
               className="w-full h-full object-cover"
               loading="lazy"
