@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "doctors": "Doctors",
+    "gallery": "Gallery",
+    "beforeAfter": "Before & After",
+    "reviews": "Reviews",
+    "prices": "Prices",
+    "contact": "Contact",
+    "book": "Book Appointment"
+  },
+  "hero": {
+    "headline": "A healthy smile — your trust",
+    "description": "Yormand is a modern dental clinic in central Dushanbe, offering professional and safe dental care.",
+    "cta1": "Book an Appointment",
+    "cta2": "Call Now"
+  },
+  "trust": { "rating": "Based on patient ratings on Yandex Maps" },
+  "sections": {
+    "servicesTitle": "Our Services",
+    "servicesSubtitle": "A full range of dental care services",
+    "aboutTitle": "About Yormand",
+    "doctorsTitle": "Our Doctors",
+    "galleryTitle": "Gallery",
+    "reviewsTitle": "Patient Reviews",
+    "beforeAfterTitle": "Treatment Results",
+    "ctaTitle": "Ready for a new smile?",
+    "ctaSubtitle": "Contact us today and book your appointment"
+  },
+  "buttons": {
+    "viewAll": "View All",
+    "bookNow": "Book Now",
+    "learnMore": "Learn More",
+    "submit": "Submit",
+    "call": "Call Now"
+  },
+  "appointment": {
+    "title": "Book an Appointment",
+    "subtitle": "Fill out the form and we'll contact you",
+    "name": "Name",
+    "phone": "Phone",
+    "service": "Service",
+    "date": "Preferred Date",
+    "time": "Preferred Time",
+    "message": "Message (optional)",
+    "success": "Thank you! Your request has been received. We'll contact you shortly.",
+    "error": "Something went wrong. Please try again or call us."
+  },
+  "contact": {
+    "title": "Contact",
+    "address": "Address",
+    "phone": "Phone",
+    "hours": "Working Hours"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "subtitle": "Sorry, the page you're looking for doesn't exist.",
+    "back": "Back to Home"
+  },
+  "placeholder": {
+    "toBeConfirmed": "To be confirmed",
+    "doctorNote": "Information pending confirmation by the clinic"
+  }
+}

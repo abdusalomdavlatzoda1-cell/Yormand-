@@ -1,0 +1,219 @@
+// Yormand Dental Clinic - Database Schema
+// NOTE: Uses SQLite for zero-config local development.
+// For production, switch provider to "postgresql" and set DATABASE_URL
+// to a Postgres connection string — the schema itself does not need to change.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+ role      String   @default("ADMIN")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  auditLogs AuditLog[]
+}
+
+model AuditLog {
+  id          String    @id @default(cuid())
+  adminUserId String
+  adminUser   AdminUser @relation(fields: [adminUserId], references: [id])
+  action      String
+  entity      String
+  entityId    String?
+  details     String?
+  createdAt   DateTime  @default(now())
+}
+
+model Service {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  category       String
+  icon           String?
+  image          String?
+  price          Float?
+  priceVisible   Boolean  @default(false)
+  duration       String?
+  featured       Boolean  @default(false)
+  active         Boolean  @default(true)
+  order          Int      @default(0)
+  seoTitle       String?
+  seoDescription String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  translations ServiceTranslation[]
+  prices       Price[]
+}
+
+model ServiceTranslation {
+  id               String  @id @default(cuid())
+  serviceId        String
+  service          Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  locale           String // tj | ru | en
+  title            String
+  shortDescription String?
+  fullDescription  String?
+
+  @@unique([serviceId, locale])
+}
+
+model Doctor {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  photo          String?
+  isPlaceholder  Boolean  @default(false)
+  experience     String?
+  languages      String? // comma separated
+  socialLinks    String? // JSON string
+  order          Int      @default(0)
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  translations DoctorTranslation[]
+}
+
+model DoctorTranslation {
+  id             String @id @default(cuid())
+  doctorId       String
+  doctor         Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  locale         String
+  fullName       String
+  specialization String?
+  biography      String?
+  education      String?
+  certifications String?
+
+  @@unique([doctorId, locale])
+}
+
+model GalleryItem {
+  id          String   @id @default(cuid())
+  imageUrl    String
+  category    String // Clinic | Reception | TreatmentRooms | Equipment | Team | Other
+  title       String?
+  description String?
+  order       Int      @default(0)
+  visible     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model BeforeAfter {
+  id            String   @id @default(cuid())
+  beforeImage   String
+  afterImage    String
+  treatmentName String
+  description   String?
+  published     Boolean  @default(false)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+}
+
+model Review {
+  id           String   @id @default(cuid())
+  reviewerName String
+  rating       Int
+  content      String
+  source       String? // e.g. "Yandex Maps review"
+  approved     Boolean  @default(false)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+}
+
+model Price {
+  id             String   @id @default(cuid())
+  serviceId      String?
+  service        Service? @relation(fields: [serviceId], references: [id])
+  label          String
+  price          Float?
+  currency       String   @default("TJS")
+  priceRange     String?
+  onConsultation Boolean  @default(false)
+  visible        Boolean  @default(true)
+  order          Int      @default(0)
+}
+
+model Appointment {
+  id            String   @id @default(cuid())
+  name          String
+  phone         String
+  serviceName   String?
+  preferredDate String?
+  preferredTime String?
+  message       String?
+  status        String   @default("NEW") // NEW | PENDING | CONFIRMED | COMPLETED | CANCELLED
+  internalNote  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Page {
+  id    String @id @default(cuid())
+  slug  String @unique
+  translations PageTranslation[]
+}
+
+model PageTranslation {
+  id      String @id @default(cuid())
+  pageId  String
+  page    Page   @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  locale  String
+  title   String
+  content String?
+
+  @@unique([pageId, locale])
+}
+
+model HomepageSection {
+  id       String  @id @default(cuid())
+  key      String  @unique // hero | trust | services | about | doctors | gallery | reviews | beforeafter | cta
+  visible  Boolean @default(true)
+  order    Int     @default(0)
+  dataJson String? // flexible JSON for section content (per-locale)
+}
+
+model Media {
+  id         String   @id @default(cuid())
+  url        String
+  filename   String
+  mimeType   String
+  size       Int
+  uploadedAt DateTime @default(now())
+}
+
+model SiteSetting {
+  id    String @id @default("settings")
+  data  String // JSON blob: clinicName, logo, favicon, phone, whatsapp, telegram, instagram,
+               // email, address, workingHours, googleMapsLink, yandexMapsLink
+}
+
+model SocialLink {
+  id       String  @id @default(cuid())
+  platform String
+  url      String
+  visible  Boolean @default(true)
+  order    Int     @default(0)
+}
+
+model SeoEntry {
+  id             String  @id @default(cuid())
+  pageKey        String  @unique
+  seoTitle       String?
+  seoDescription String?
+  ogImage        String?
+  canonicalUrl   String?
+  robots         String? @default("index,follow")
+}
