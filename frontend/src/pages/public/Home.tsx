@@ -52,7 +52,7 @@ export default function Home() {
           <div className="relative">
             <div className="aspect-[4/5] rounded-3xl bg-brand-100 overflow-hidden shadow-xl">
               <img
-                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=1200&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1200&auto=format&fit=crop"
                 alt="Yormand Dental Clinic"
                 className="w-full h-full object-cover"
                 loading="eager"
